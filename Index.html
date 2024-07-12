@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hecowena</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+#home {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 15;
+  border-bottom: 1px solid #ccc;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: aqua;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+nav {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+}
+
+nav ul li {
+  margin-left: 4rem;
+}
+
+nav ul li a {
+  color: #FFA500;;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color:whitesmoke;
+}
+
+.content {
+  position: absolute;
+  top: 70%;
+  left: 50px; /* Moved the content to the left */
+  transform: translateY(-50%); /* Centered vertically */
+  color: white;
+  z-index: 5;
+  text-align: left; /* Aligned the content to the left */
+
+}
+
+.content h1 {
+  font-size: 4rem; /* Increased the font size */
+  margin-bottom: 1rem;
+}
+
+.content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #FFA500;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  margin-right: 1rem; /* Added margin-right for spacing */
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #FF8C00;
+}
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #FFA500;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin: 0 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #FF8C00;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 50px;
+            transition: right 0.3s ease;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 25px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: #FFA500;
+        }
+        .sidebar .social-icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+}
+
+.sidebar .social-icons a {
+    padding: 0;
+    margin: 0 5px;
+    color: rgb(146, 37, 37); /* Default text color */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.sidebar .social-icons a:hover {
+    color: aqua; /* Change text color to aqua on hover */
+}
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .sidebar .social-icons {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .top-bar .social-icons {
+                display: none;
+            }
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .close-menu {
+                display: block;
+            }
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        #main-goal {
+            padding: 50px 0;
+            background-color: #f5f5f5;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    
+        .image-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+    
+        .oval-image {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        .content-container {
+            flex: 2;
+            min-width: 300px;
+            padding: 20px;
+        }
+    
+        .blue-box {
+            background-color:none;
+            padding: 5px 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border-radius: 60px;
+            border: 2px solid blue;
+        }
+    
+        .blue-box h2 {
+            color: #00ffff;
+            margin: 0;
+            font-size: 10px;
+        }
+    
+        .organization-name {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+    
+        .primary-focus {
+            margin-bottom: 20px;
+        }
+    
+        .mission, .strategic-vision {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    
+        .mission i, .strategic-vision i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #0077be;
+        }
+    
+        .mission h4, .strategic-vision h4 {
+            margin: 0;
+            font-size: 20px;
+        }
+    
+        .mission-text, .vision-text {
+            margin-bottom: 20px;
+        }
+    
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+    
+            .image-container, .content-container {
+                width: 100%;
+            }
+    
+            .oval-image {
+                max-width: 300px;
+                margin: 0 auto;
+                display: block;
+            }
+        }
+
+        
+        #what-we-do {
+            padding: 50px 0;
+            background-color:	#F9F6EE;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    
+        .image-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+    
+        .hover-image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+    
+        .hover-image:hover {
+            transform: translateY(-10px);
+        }
+    
+        .content-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+    
+        .blue-box {
+            border: 2px solid #0077be;
+            padding: 10px 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    
+        .blue-box h2 {
+            color:blue;
+            margin: 0;
+            font-size: 24px;
+        }
+    
+        .tagline {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+    
+        .description {
+            color: #666;
+            line-height: 1.6;
+        }
+    
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+    
+            .image-container, .content-container {
+                width: 100%;
+            }
+    
+            .hover-image {
+                max-width: 100%;
+                margin: 0 auto;
+                display: block;
+            }
+        }
+       /* Thematics Section */
+       #thematics {
+            padding: 2rem;
+            background-color: #ECF0F1 ;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .thematics-content {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-bottom: 2rem;
+        }
+
+        .thematics-content div {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .thematics-content div:first-child {
+            border-right: 1px solid #ccc;
+        }
+
+        .thematics-images {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+
+        .thematics-image-card {
+            position: relative;
+            width: 30%;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .thematics-image-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .thematics-image-card .card-view {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .thematics-image-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .thematics-image-card:hover .card-view {
+            transform: translateY(0);
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
+         /* More Programs Button */
+         .more-programs-btn {
+            display: inline-block;
+            padding: 1rem 4rem;
+            background-color: #FFA500;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .more-programs-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .more-programs-btn:hover::before {
+            left: 100%;
+        }
+
+        .more-programs-btn:hover {
+            color: #000;
+        }
+
+        .more-programs-btn i {
+            margin-left: 0.5rem;
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* initiative*/
+        #initiatives {
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    background-color: #ccc;
+}
+
+.gallery {
+    --s: 130px; /* control the size */
+    --g: 10px;  /* control the gap */
+    display: grid;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.gallery > div {
+    grid-area: 1/1;
+    width: var(--s);
+    aspect-ratio: 0.866;
+    background: rgba(87, 85, 85, 0.3); /* Increased opacity for visibility */
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0);
+    transition: .2s linear;
+}
+
+/* Adjust the positioning of hexagons to cover the entire area */
+.gallery > div:nth-child(1) { transform: translate(calc(-150% - 1.5 * var(--g)), calc(-100% - var(--g))); }
+.gallery > div:nth-child(2) { transform: translate(calc(-50% - 0.5 * var(--g)), calc(-100% - var(--g))); }
+.gallery > div:nth-child(3) { transform: translate(calc(50% + 0.5 * var(--g)), calc(-100% - var(--g))); }
+.gallery > div:nth-child(4) { transform: translate(calc(150% + 1.5 * var(--g)), calc(-100% - var(--g))); }
+.gallery > div:nth-child(5) { transform: translate(calc(-100% - var(--g)), calc(-50% - 0.5 * var(--g))); }
+.gallery > div:nth-child(6) { transform: translate(0, calc(-50% - 0.5 * var(--g))); }
+.gallery > div:nth-child(7) { transform: translate(calc(100% + var(--g)), calc(-50% - 0.5 * var(--g))); }
+.gallery > div:nth-child(8) { transform: translate(calc(200% + 2 * var(--g)), calc(-50% - 0.5 * var(--g))); }
+.gallery > div:nth-child(9) { transform: translate(calc(-150% - 1.5 * var(--g)), 0); }
+.gallery > div:nth-child(10) { transform: translate(calc(-50% - 0.5 * var(--g)), 0); }
+.gallery > div:nth-child(11) { transform: translate(calc(50% + 0.5 * var(--g)), 0); }
+.gallery > div:nth-child(12) { transform: translate(calc(150% + 1.5 * var(--g)), 0); }
+.gallery > div:nth-child(13) { transform: translate(calc(-100% - var(--g)), calc(50% + 0.5 * var(--g))); }
+.gallery > div:nth-child(14) { transform: translate(0, calc(50% + 0.5 * var(--g))); }
+.gallery > div:nth-child(15) { transform: translate(calc(100% + var(--g)), calc(50% + 0.5 * var(--g))); }
+.gallery > div:nth-child(16) { transform: translate(calc(200% + 2 * var(--g)), calc(50% + 0.5 * var(--g))); }
+.gallery > div:nth-child(17) { transform: translate(calc(-150% - 1.5 * var(--g)), calc(100% + var(--g))); }
+.gallery > div:nth-child(18) { transform: translate(calc(-50% - 0.5 * var(--g)), calc(100% + var(--g))); }
+.gallery > div:nth-child(19) { transform: translate(calc(50% + 0.5 * var(--g)), calc(100% + var(--g))); }
+.gallery > div:nth-child(20) { transform: translate(calc(150% + 1.5 * var(--g)), calc(100% + var(--g))); }
+
+/* Add more hexagons to fill the space */
+.gallery::before,
+.gallery::after {
+    content: "";
+    grid-area: 1/1;
+    width: var(--s);
+    aspect-ratio: 0.866;
+    background: rgba(87, 85, 85, 0.3); /* Increased opacity for visibility */
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0);
+}
+
+.gallery::before { transform: translate(calc(-200% - 2 * var(--g)), calc(-150% - 1.5 * var(--g))); }
+.gallery::after { transform: translate(calc(250% + 2.5 * var(--g)), calc(150% + 1.5 * var(--g))); }
+
+.initiatives-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.blob-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid blue;
+    color: blue;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s, transform 0.3s;
+    z-index: 1;
+    border-radius: 30px; /* Rounded corners for blob effect */
+}
+
+.blob-button i {
+    margin-left: 8px;
+    transition: transform 0.3s;
+}
+
+.blob-button:hover i {
+    transform: translateX(5px);
+}
+
+.blob-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: blue;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.blob-button:hover {
+    color: white;
+}
+
+.blob-button:hover::before {
+    transform: scaleX(1);
+}
+
+.initiatives-images {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: transparent; /* Ensure no background color behind images */
+    flex-wrap: wrap; /* Ensure images wrap on smaller screens */
+}
+
+.initiatives-image-card {
+    position: relative;
+    width: 370px;
+    height: 200px;
+    margin: 10px; /* Adjust margin for better spacing on smaller screens */
+    background-color: transparent; /* Ensure no background color behind images */
+}
+
+.initiatives-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s;
+    background-color: transparent; /* Ensure no background color behind images */
+}
+
+.blue-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.initiatives-image-card:hover .blue-filter {
+    opacity: 1;
+}
+
+.blue-filter p {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+}
+
+.icon-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white;
+}
+
+.left {
+    font-size: 18px;
+}
+
+.right {
+    font-size: 18px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .initiatives-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .initiatives-images {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .blob-button {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+
+    .blue-filter p {
+        font-size: 16px;
+    }
+
+    .icon-container {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .initiatives-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .initiatives-images {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .blob-button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .blue-filter p {
+        font-size: 14px;
+    }
+
+    .icon-container {
+        font-size: 18px;
+    }
+}
+
+/* who we are*/
+#who-we-are {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('slider1.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -3;
+}
+
+.background-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -2;
+}
+
+.dot-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(128, 128, 128, 0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+}
+.image-container {
+    flex: 1;
+    max-width: 45%;
+    position: relative;
+    transform: translateY(50px);  /* Adjust the value as needed */
+}
+
+
+.overlap-image {
+    width: 100%;
+    height: auto;
+    transform: translateX(-20%);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background-image: radial-gradient(circle, rgba(128, 128, 128, 0.4) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover::before {
+    opacity: 1;
+}
+
+.overlap-image:hover {
+    transform: translateX(-10%) scale(1.05);
+}
+
+.text-container {
+    flex: 1;
+    max-width: 45%;
+}
+
+.what-we-do-box {
+    border: 1px solid lime;
+    padding: 1px;  /* Reduced padding */
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: white;  /* Text color white */
+    background-color: transparent;  /* Remove background color */
+    position: relative;
+    box-shadow: 0 0 0 2px white;  /* White border radius effect */
+    position: relative;
+    box-shadow: 0 0 0 2px white;  /* White border radius effect */
+    width: 130px;  /* Set a fixed width */
+    max-width: 100%;  /* Ensure it doesn't overflow the container */
+}
+
+
+.what-we-do-box h2 {
+    margin-top: 0;
+    color: white;
+}
+
+.description p {
+    line-height: 1.0;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .image-container, .text-container {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .overlap-image {
+        transform: translateX(0);
+    }
+
+    .overlap-image:hover {
+        transform: scale(1.05);
+    }
+}
+/*  partners*/
+/* ====== PARTNERS ====== */
+
+.partners {
+    width: 100%;
+    text-align: center; 
+    padding: 40px 20px 100px; 
+    background-color: ;
+}
+
+.title h1 {
+    width: fit-content;
+    padding: 50px 8px;
+    margin: auto;
+    font-size: 2.5em; 
+    font-weight: 500;
+    color:blue;
+    text-align: center; 
+    /*#00ffff;*/
+}
+
+.partners-section {
+    width: fit-content;
+    height: auto;
+    padding-top: 30px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+.partners img {
+    width: auto;
+    height: 200px;
+    padding: 8px;
+    box-shadow: 0px 0px 20px #01b4ff;;
+    cursor: pointer;
+
+    &:hover{
+        scale: 1.1;
+        box-shadow: 0px 0px 30px #f105054b;
+    }
+}
+
+.image-gallery {
+    width: 100%;
+    min-height: 80vh;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 40px;
+}
+
+.image-container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.image {
+    width: fit-content;
+    height: fit-content;
+    border: 3px solid #3498db;
+    box-shadow: 0px 0px 10px #143850a4;
+    padding: 8px;
+    /* transform: rotate(2deg); */
+    overflow: hidden;
+
+    img{
+        min-width: 480px;
+        height: auto;
+        /* rotate: -4deg; */
+    }
+}
+
+.text-card {
+    max-width: 50%;
+    height: fit-content;
+    padding: 20px;
+    background-color: #fff;
+    padding: 10px;
+    /* flex: 1; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* margin-left: 20px; */
+    h2{
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-gallery {
+        flex-direction: column;
+    }
+
+    .image-container,
+    .text-card {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .image {
+        margin-bottom: 20px;
+    }
+}
+  /* people --- --        ---           ------        -----    --- - --- --- --*/
+  #people .container4 {
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #82a7b1;
+    
+}
+
+#people .photos-detail {
+    padding: 2rem;
+    transition: 350ms ease-in-out;
+    box-shadow: 0 4px 20px 3px rgb(0 0 0 / 10%);
+    border-radius: 10px;
+}
+
+#people img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    transition: 500ms ease-in-out;
+}
+
+#people .social-medias {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 0;
+    transition: 350ms ease-in-out;
+}
+
+#people .social-medias>a {
+    color: black;
+}
+
+#people h2 {
+    transition: 350ms ease-in-out;
+}
+
+#people p {
+    text-align: center;
+    margin-top: -10px;
+    color: rgb(129, 117, 117);
+    transition: 350ms ease-in-out;
+}
+
+#people .photos-detail:hover {
+    background: rgb(100, 240, 228);
+}
+
+#people .photos-detail:hover img {
+    transform: rotate(15deg);
+}
+
+#people .photos-detail:hover .user-detail h2,
+#people .photos-detail:hover .user-detail p,
+#people .photos-detail:hover .social-medias>a {
+    color: white;
+}
+
+@media only screen and (max-width: 762px) {
+    #people .container4 {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+#people {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    position: relative; /* Ensures the button can be absolutely positioned */
+}
+
+#people h1 {
+    color: blue;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.see-all-button {
+    position: absolute;
+    top: 2rem; /* Adjust the position as needed */
+    right: 2rem; /* Adjust the position as needed */
+    padding: 1rem 2rem;
+    background-color:#FFA500;;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.see-all-button:hover {
+    background-color: darkblue;
+    transform: translateY(-3px);
+}
+
+.see-all-button .arrow {
+    margin-left: 1rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.see-all-button:hover .arrow {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .see-all-button {
+        position: static;
+        margin: 1rem auto;
+        display: block;
+        width: fit-content;
+    }
+}
+.icon-container3{
+    color: #ECF0F1;
+}
+
+    </style>
+</head>
+
+
+<body>
+    <section id="home">
+        <div class="top-bar">
+            <div class="social-icons">
+                <a href="#" class="fadeIn"><i class='bx bxl-twitter'></i></a>
+                <a href="#" class="fadeIn"><i class='bx bxl-facebook'></i></a>
+                <a href="#" class="fadeIn"><i class='bx bxl-instagram'></i></a>
+                <a href="#" class="fadeIn"><i class='bx bxl-youtube'></i></a>
+            </div>
+        </div>
+        <nav>
+            <div class="logo fadeIn">Hecowena</div>
+            <ul>
+                <li><a href="#home" class="fadeIn"><h1>HOME</h1></a></li>
+                <li><a href="#about" class="fadeIn"><h1>ABOUT</h1></a></li>
+                <li><a href="#services" class="fadeIn"><h1>SERVICE</h1></a></li>
+                <li><a href="#contact" class="fadeIn"><h1>CONTACT US</h1></a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+        <div class="sidebar">
+            <div class="close-menu">
+                <i class='bx bx-x'></i>
+            </div>
+            <a href="#home" class="fadeIn">Home</a>
+            <a href="#about" class="fadeIn">About</a>
+            <a href="#services" class="fadeIn">Services</a>
+            <a href="#contact" class="fadeIn">Contact</a>
+            <div class="social-icons">
+                <a href="#" class="fadeIn"><i class='bx bxl-twitter'></i></a>
+                <a href="#" class="fadeIn"><i class='bx bxl-facebook'></i></a>
+                <a href="#" class="fadeIn"><i class='bx bxl-instagram'></i></a>
+                <a href="#" class="fadeIn"><i class='bx bxl-youtube'></i></a>
+            </div>
+        </div>
+        <div class="slider">
+            <div class="slide active"><img src="slider1.jpg" alt="Slider Image 1"></div>
+            <div class="slide"><img src="slider2.jpg" alt="Slider Image 2"></div>
+            <div class="slide"><img src="slider3.jpg" alt="Slider Image 3"></div>
+        </div>
+        <div class="content fadeIn">
+            <h1>Welcome to Hecowena</h1>
+            <p>Discover amazing products and services</p>
+            <a href="#" class="btn fadeIn">DONATE</a>
+            <a href="#" class="btn fadeIn">LEARN MORE</a>
+        </div>
+    </section>
+ 
+    <section id="main-goal">
+        <div class="container">
+            <div class="image-container">
+                <img src="slider1.jpg" alt="Main Goal" class="oval-image">
+            </div>
+            <div class="content-container">
+                <div class="blue-box">
+                    <h2>Our Main Goals</h2>
+                </div>
+                <h3 class="organization-name">HECOWENA...</h3>
+                <p class="primary-focus">Our primary focus is on preventing sexual and gender-based violence (SGBV), as well as promoting young women's leadership in the community.</p>
+                <div class="mission">
+                    <i class='bx bx-bullseye'></i>
+                    <h4>Mission</h4>
+                </div>
+                <p class="mission-text">To strengthen the capacity of communities to live meaningful lives through integrated health, research, training and innovative livelihood solutions</p>
+                <div class="strategic-vision">
+                    <i class='bx bx-rocket'></i>
+                    <h4>Strategic Vision</h4>
+                </div>
+                <p class="vision-text">Healthy community for a wealthy nation for an empowered, resilient and safe communities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="what-we-do">
+        <div class="container">
+            <div class="image-container">
+                <img src="slider1.jpg" alt="What We Do" class="hover-image">
+            </div>
+            <div class="content-container">
+                <div class="blue-box">
+                    <h2>What We Do</h2>
+                </div>
+                <h3 class="tagline">Building the capacity of communities for sustainable development</h3>
+                <p class="description">Hecowena is a woman led women managed organization which was established and officially registered as an NGO in Kenya in the year 2012. The organization was established to ensure that communities attain the basic development and human dignity.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="thematics">
+        <div class="thematics-content">
+            <div>Our thematic</div>
+            <div>Hecowena focuses</div>
+        </div>
+        <div class="thematics-images">
+            <div class="thematics-image-card">
+                <img src="slider1.jpg" alt="Image 1">
+                <div class="card-view">
+                    <i class='bx bx-bullseye'></i>
+                    <p><a href="">GBV</a></p>
+                    <P>BYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</P>
+                </div>
+            </div>
+            <div class="thematics-image-card">
+                <img src="slider2.jpg" alt="Image 2">
+                <div class="card-view">
+                    <i class='bx bx-bullseye'></i>
+                    <p><a href="">FGM</a></p>
+                    <P>BYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</P>
+                </div>
+            </div>
+            <div class="thematics-image-card">
+                <img src="slider3.jpg" alt="Image 3">
+                <div class="card-view">
+                    <i class='bx bx-bullseye'></i>
+                    <p><a href="">Health</a></p>
+                    <P>BYYYYYYYYYYYYYYY</P>
+                    <P>primary focus is on preventing sexual and gender-based violence (SGBV), as well as promoting young women's leadership in the community.</P>
+
+
+                </div>
+            </div>
+        </div>
+        <a href="#" class="more-programs-btn fadeIn">More Programs<i class='bx bx-right-arrow-alt'></i></a>
+    </section>
+     
+    <section id="initiatives">
+        <div class="gallery">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="initiatives-content">
+            <div class="left">
+                <a href="#" class="blob-button">Our Initiative</a>
+            </div>
+            <div class="right">
+                <p>Since 2012</p>
+            </div>
+        </div>
+        <div class="initiatives-content">
+            <div class="left">
+                <p>We equip</p>
+            </div>
+        </div>
+        <div class="initiatives-images">
+            <div class="initiatives-image-card">
+                <img src="slider1.jpg" alt="Image 1">
+                <div class="blue-filter">
+                    
+                    <p>GBV</p>
+                    <div class="icon-container">
+                       
+                        <div class="icon-container3">
+                            <a href="" class='bx bx-right-arrow-alt' title="Read More"></a>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+                  
+            <div class="initiatives-image-card">
+                <img src="slider2.jpg" alt="Image 2">
+                <div class="blue-filter">
+                    <p>FGM</p>
+                    <div class="icon-container">
+                       
+                        <div class="icon-container3">
+                            <a href="" class='bx bx-right-arrow-alt' title="Read More"></a>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="initiatives-image-card">
+                <img src="slider3.jpg" alt="Image 3">
+                <div class="blue-filter">
+                    <p>Health</p>
+                    <div class="icon-container">
+                        <a href="hecowenablog.html" class='bx bx-right-arrow-alt' title="Read More"></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <a href="#" class="blob-button">ALL initiatives<i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+    </section>
+
+<section id="who-we-are">
+    <div class="background-image"></div>
+    <div class="dot-pattern"></div>
+    <div class="content-wrapper">
+        <div class="image-container">
+            <img src="slider1.jpg" alt="Image" class="overlap-image"> <!-- Replace 'image.jpg' with your image path -->
+        </div>
+        <div class="text-container">
+            <div class="what-we-do-box">
+                <h2></h2>
+            <p><h5>WHAT WE ARE</h5></p>
+            </div>
+            <div class="description">
+                <p>hecowena is a registered as a CBO in..........</p>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="partners">
+        <div class="title">
+            <h1>OUR PARTNERS</h1>
+        </div>
+    
+        <div class="partners-section">
+            <img src="KIKOP.JPG" alt="Slide 1">
+            <img src="KISII COUNTY.JPG" alt="Slide 1">
+            <img src="KISII.JPG" alt="Slide 1">
+            <img src="DARAJA.JPG" alt="Slide 1">
+            <img src="KRC.JPG.png" alt="Slide 1">
+        </div>
+    </div>
+    </section>
+
+    <section id="people">
+        <h1>Our Team</h1>
+        <button class="see-all-button">
+            See All Members
+            <span class="arrow">➔</span> <!-- Use an arrow icon or symbol here -->
+        </button>
+<div class="container4">
+    <div class="photos-detail">
+      <img src="executive.jpg" alt="photo">
+      <div class="user-detail">
+        <h2 class="name">ALEX ONTIRI</h2>
+        <p class="profession">FOUNDER</p>
+       <div class="social-medias">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="photos-detail">
+      <img src="sep.jpg" alt="photo">
+      <div class="user-detail">
+        <h2 class="name">NICKSON OGUGU</h2>
+        <p class="profession">CO- FOUNDER</p>
+        <div class="social-medias">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="photos-detail">
+      <img src="sep.jpg" alt="photo">
+      <div class="user-detail">
+        <h2 class="name">PAUL SEPS </h2>
+        <p class="profession">Backend Developer</p>
+        <div class="social-medias">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+    </section>
+   
+
+    
+    </body>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const closeMenu = document.querySelector('.close-menu');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+        mobileMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+    </script>
+</html>
