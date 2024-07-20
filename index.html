@@ -939,8 +939,10 @@ nav ul li a:hover {
     }
 
     .image-container, .text-container {
-        max-width: 100%;
+        width: 200%;  /* Full width on smaller screens */
+        max-width: 160%;  /* Ensure it doesn't overflow */
         margin-bottom: 2rem;
+        margin-left: 70px;  /* Move to the right */
     }
 
     .overlap-image {
