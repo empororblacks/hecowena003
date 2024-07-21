@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -346,96 +347,149 @@ nav ul li a:hover {
         }
     
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-    
-            .image-container, .content-container {
-                width: 100%;
-            }
-    
-            .oval-image {
-                max-width: 300px;
-                margin: 0 auto;
-                display: block;
-            }
-        }
+    .container {
+        flex-direction: column;
+    }
 
-        
-        #what-we-do {
-            padding: 50px 0;
-            background-color:	#F9F6EE;
-        }
-    
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-    
-        .image-container {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px;
-        }
-    
-        .hover-image {
-            width: 100%;
-            height: auto;
-            transition: transform 0.3s ease-in-out;
-        }
-    
-        .hover-image:hover {
-            transform: translateY(-10px);
-        }
-    
-        .content-container {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px;
-        }
-    
-        .blue-box {
-            border: 2px solid #0077be;
-            padding: 10px 20px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-    
-        .blue-box h2 {
-            color:blue;
-            margin: 0;
-            font-size: 24px;
-        }
-    
-        .tagline {
-            color: #333;
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-    
-        .description {
-            color: #666;
-            line-height: 1.6;
-        }
-    
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-    
-            .image-container, .content-container {
-                width: 100%;
-            }
-    
-            .hover-image {
-                max-width: 100%;
-                margin: 0 auto;
-                display: block;
-            }
-        }
+    .image-container, .content-container {
+        width: 100%;
+    }
+
+    .oval-image {
+        max-width: 300px;
+        margin: 0;
+        display: block;
+        align-self: flex-start; /* Align the image to the left */
+    }
+}
+
+#what-we-do {
+    padding: 50px 0;
+    background-color: #F9F6EE;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    flex: 0 0 40%; /* Don't grow, don't shrink, start at 40% */
+    padding: 20px;
+}
+
+.hover-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+    display: block;
+}
+
+.hover-image:hover {
+    transform: translateY(-10px);
+}
+
+.content-container {
+    flex: 1;
+    padding: 20px;
+}
+
+.blue-box {
+    border: 2px solid #0077be;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.blue-box h2 {
+    color: blue;
+    margin: 0;
+    font-size: 24px;
+}
+
+.tagline {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.description {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Styles for all screen sizes */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 20px;
+    }
+}
+
+/* Styles for screens smaller than 992px */
+@media (max-width: 991px) {
+    .image-container {
+        flex: 0 0 100%;
+        order: -1; /* Moves image to the top */
+        max-width: 400px; /* Limit image width */
+        margin: 0 auto 20px;
+    }
+
+    .content-container {
+        flex: 0 0 100%;
+    }
+}
+
+/* Styles for screens smaller than 768px */
+@media (max-width: 767px) {
+    .image-container {
+        padding: 10px;
+        margin: 0 0 20px; /* Remove auto margin */
+        max-width: none; /* Allow full width */
+    }
+
+    .hover-image {
+        max-width: 100%;
+    }
+
+    .content-container {
+        padding: 10px;
+    }
+
+    .blue-box h2 {
+        font-size: 20px;
+    }
+
+    .tagline {
+        font-size: 18px;
+    }
+}
+
+/* Styles for very small screens */
+@media (max-width: 480px) {
+    #what-we-do {
+        padding: 30px 0;
+    }
+
+    .blue-box {
+        padding: 5px 10px;
+    }
+
+    .blue-box h2 {
+        font-size: 18px;
+    }
+
+    .tagline {
+        font-size: 16px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+}
+
        /* Thematics Section */
        #thematics {
             padding: 2rem;
@@ -1505,8 +1559,8 @@ h3, h4 {
 
     <section id="what-we-do">
         <div class="container">
-            <div class="image-container">
-                <img src="IMG_3046.jpg" alt="What We Do" class="hover-image">
+            <div class="image-container7">
+                <img src="image13.jpg" alt="What We Do" class="hover-image">
             </div>
             <div class="content-container">
                 <div class="blue-box">
@@ -1514,6 +1568,9 @@ h3, h4 {
                 </div>
                 <h3 class="tagline">Building the capacity of communities for sustainable development</h3>
                 <p class="description">Hecowena is a woman led women managed organization which was established and officially registered as an NGO in Kenya in the year 2012. The organization was established to ensure that communities attain the basic development and human dignity.</p>
+            </div>
+       
+               
             </div>
         </div>
     </section>
