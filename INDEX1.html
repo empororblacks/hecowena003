@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hecowena</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+     
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    #home {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 15;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: aqua;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    nav {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      padding: 1rem;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Navigation base styling */
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    
+    }
+
+    .nav-menu > li {
+      position: relative;
+      margin-right: 20px;
+    }
+
+    .nav-menu a {
+      color: rgb(10, 7, 2); /* Default orange text */
+      text-decoration: none;
+      padding: 15px 20px;
+      display: block;
+      transition: color 0.3s ease;
+      font-weight: bold;
+    }
+
+    /* Hover only changes text color (no background box) */
+    .nav-menu a:hover {
+      color: rgb(18, 226, 209);
+      background-color: transparent; /* Remove background box */
+    }
+
+    /* Dropdown hidden by default */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #444;
+      min-width: 160px;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Show dropdown on hover */
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Dropdown item styling */
+    .dropdown-content li a {
+      padding: 10px 20px;
+      color: orange; /* Keep dropdown links orange */
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    /* Dropdown hover only changes text color, no background */
+    .dropdown-content li a:hover {
+      color: rgb(196, 127, 23);
+      background-color: transparent;
+    }
+
+    .content {
+      position: absolute;
+      top: 70%;
+      left: 50px; /* Moved the content to the left */
+      transform: translateY(-50%); /* Centered vertically */
+      color: white;
+      z-index: 5;
+      text-align: left; /* Aligned the content to the left */
+    }
+
+    .content h1 {
+      font-size: 4rem; /* Increased the font size */
+      margin-bottom: 1rem;
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #FFA500;
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      margin: 0 0.5rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #FF8C00;
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #333;
+      padding-top: 50px;
+      transition: right 0.3s ease;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      color: #FFA500;
+    }
+
+    .sidebar .social-icons {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 25px;
+    }
+
+    .sidebar .social-icons a {
+      padding: 0;
+      margin: 0 5px;
+      color: rgb(146, 37, 37);
+      transition: color 0.3s ease;
+    }
+
+    .sidebar .social-icons a:hover {
+      color: aqua;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .sidebar .social-icons {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .top-bar .social-icons {
+        display: none;
+      }
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .close-menu {
+        display: block;
+      }
+    }
+
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .fadeIn {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    #main-goal {
+      padding: 50px 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .image-container {
+      flex: 1;
+      min-width: 300px;
+      padding: 20px;
+    }
+
+    .oval-image {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .content-container {
+      flex: 2;
+      min-width: 300px;
+      padding: 20px;
+    }
+
+    .blue-box {
+      background-color: none;
+      padding: 5px 10px;
+      display: inline-block;
+      margin-bottom: 20px;
+      border-radius: 60px;
+      border: 2px solid blue;
+    }
+
+    .blue-box h2 {
+      color: #00ffff;
+      margin: 0;
+      font-size: 10px;
+    }
+
+    .organization-name {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .primary-focus {
+      margin-bottom: 20px;
+    }
+
+    .mission,
+    .strategic-vision {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <section id="home">
+    <div class="top-bar">
+      <div class="social-icons">
+        <a href="#" class="fadeIn"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="fadeIn"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="fadeIn"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="fadeIn"><i class="bx bxl-youtube"></i></a>
+        <a href="#" class="fadeIn"><i class="bx bxl-tiktok"></i></a>
+      </div>
+    </div>
+
+    <nav>
+      <div class="logo fadeIn">Hecowena</div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="fadeIn">HOME</a></li>
+        <li><a href="#about" class="fadeIn">ABOUT</a></li>
+        <li class="dropdown">
+          <a href="#services" class="fadeIn">SERVICE</a>
+          <ul class="dropdown-content">
+            <li><a href="register.html">Register</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-menu">
+        <i class='bx bx-menu'></i>
+      </div>
+    </nav>
+
+    <div class="slider">
+      <div class="slide active"><img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg" alt="Slide 1" /></div>
+      <div class="slide"><img src="https://images.pexels.com/photos/672358/pexels-photo-672358.jpeg" alt="Slide 2" /></div>
+      <div class="slide"><img src="https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg" alt="Slide 3" /></div>
+    </div>
+
+    <div class="content">
+      <h1>Welcome to Hecowena</h1>
+      <p>Your trusted partner for professional services.</p>
+      <a href="#about" class="btn">Learn More</a>
+      <a href="#services" class="btn">Our Services</a>
+    </div>
+  </section>
+
+  
+  <script>
+    // Slider logic
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }, 4000);
+
+    // Mobile menu toggle
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+
+    mobileMenu.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

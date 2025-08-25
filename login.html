@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #222;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Outer red animation ring */
+    .outer-ring {
+      position: relative;
+      padding: 10px;
+      border-radius: 30px;
+      background: transparent;
+      animation: pulse-red 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse-red {
+      0% {
+        box-shadow: 0 0 15px 2px rgb(139, 214, 195);
+      }
+      50% {
+        box-shadow: 0 0 30px 5px rgb(69, 216, 167);
+      }
+      100% {
+        box-shadow: 0 0 15px 2px rgb(99, 129, 114);
+      }
+    }
+
+    .form-container {
+      background-color: #2c2c2c;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    h2 {
+      text-align: center;
+      color: aqua;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      color: #ddd;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 30px;
+      border: 2px solid aqua;
+      background-color: #111;
+      color: white;
+      outline: none;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #00ffff;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px 20px;
+      margin-top: 30px;
+      background-color: black;
+      color: aqua;
+      border: 2px solid aqua;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background: aqua;
+      animation: underline-slide 2s infinite;
+      z-index: -1;
+    }
+
+    @keyframes underline-slide {
+      0% {
+        left: -100%;
+      }
+      50% {
+        left: 0%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    .submit-btn:hover {
+      background-color: aqua;
+      color: black;
+    }
+
+    .consent {
+      font-size: 0.85rem;
+      color: #aaa;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <?php
+session_start();
+if (isset($_SESSION['error'])) {
+    echo "<p style='color: red; text-align: center'>" . $_SESSION['error'] . "</p>";
+    unset($_SESSION['error']);
+}
+?>
+
+  <div class="outer-ring">
+    <div class="form-container">
+      <h2>Login</h2>
+      <form action="login.php" method="post">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="password">Enter your password</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit" class="submit-btn">Login</button>
+
+        <p class="consent">
+          By logging in, you agree to our terms of service and privacy policy.
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
